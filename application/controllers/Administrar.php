@@ -11,14 +11,13 @@ class Administrar extends CI_Controller {
 	{
 		$this->load->view('admin/base',(array)$output);
 	}
-	
     public function administrarCategoria()
     {
     	try{
 			$crud = new grocery_CRUD();
 			$crud->set_table('tk_categoria');
 			$crud->set_subject('Categoria(s)');
-			
+
 			$crud->columns(
 				'NOMBRE',
 				'DESCRIPCION',
@@ -68,7 +67,7 @@ class Administrar extends CI_Controller {
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
     }
-    function log_categoria_after_update($post_array,$primary_key)
+    public function log_categoria_after_update($post_array,$primary_key)
 	{
 		$data_array = array(
 			"USUARIO_MOD" => $this->session->userdata('id_usuario'),
@@ -83,7 +82,7 @@ class Administrar extends CI_Controller {
 			$crud = new grocery_CRUD();
 			$crud->set_table('tk_persona');
 			$crud->set_subject('Persona');
-			
+
 			$crud->columns('NOMBRE','APELLIDOS','FECHA_NAC', 'ESTADO','USUARIO_REG','FECHA_REG','USUARIO_MOD','FECHA_MOD','ESTADO_REG')
 				->display_as('NOMBRE', 'Nombre')
 				->display_as('APELLIDOS', 'Apellidos')
@@ -105,7 +104,7 @@ class Administrar extends CI_Controller {
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
     }
-     function log_persona_after_update($post_array,$primary_key)
+ 	public function log_persona_after_update($post_array,$primary_key)
 	{
 		$data_array = array(
 			"USUARIO_MOD" => $this->session->userdata('id_usuario'),
@@ -120,7 +119,7 @@ class Administrar extends CI_Controller {
 			$crud = new grocery_CRUD();
 			$crud->set_table('tk_usuario');
 			$crud->set_subject('Usuario');
-			
+
 			$crud->columns('NOMBRE_USUARIO','PASSWORD','ESTADO', 'FECHA_EXPIRACION','USUARIO_REG','FECHA_REG','USUARIO_MOD','FECHA_MOD','ESTADO_REG');
 			$crud->fields('ID_PERSONA','NOMBRE_USUARIO','PASSWORD','FECHA_EXPIRACION','ESTADO');
 			$crud->display_as('NOMBRE_USUARIO', 'Nombre Usuario')
@@ -173,14 +172,13 @@ class Administrar extends CI_Controller {
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
     }
-
-     public function administrarUsuarioZona()
+	public function administrarUsuarioZona()
     {
     	try{
 			$crud = new grocery_CRUD();
 			$crud->set_table('tk_usuario_zona');
 			$crud->set_subject('Usuario - Zona');
-			
+
 			$crud->columns('ID_USUARIO','ID_ZONA','ESTADO','USUARIO_REG','FECHA_REG','USUARIO_MOD','FECHA_MOD','ESTADO_REG');
 			$crud->fields('ID_USUARIO','ID_ZONA','ESTADO');
 			$crud->display_as('ID_USUARIO', 'Usuario')
@@ -210,7 +208,7 @@ class Administrar extends CI_Controller {
 			$crud = new grocery_CRUD();
 			$crud->set_table('tk_categoria_zona');
 			$crud->set_subject('Categoria - Zona');
-			
+
 			$crud->columns('ID_CATEGORIA','ID_ZONA','ESTADO','USUARIO_REG','FECHA_REG','USUARIO_MOD','FECHA_MOD','ESTADO_REG');
 			$crud->fields('ID_CATEGORIA','ID_ZONA','ESTADO');
 			$crud->display_as('ID_CATEGORIA', 'Categoria')
@@ -285,6 +283,48 @@ class Administrar extends CI_Controller {
 			$crud->set_relation('ID_ESTACION','tk_estacion','{CODIGO}');
 
 			$crud->required_fields('ID_USUARIO','ID_ZONA','ID_ESTACION','ESTADO');
+
+			$output = $crud->render();
+
+			$this->_visualizar_admin($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+    }
+    public function administrarMultimedia()
+    {
+    	try{
+			$crud = new grocery_CRUD();
+			$crud->set_table('tk_multimedia');
+			$crud->set_subject('Multimedia Display');
+			$crud->columns(
+					'PATH',
+					'DESCRIPCION',
+					'DURACION',
+					'ORDEN',
+					'ESTADO',
+					'USUARIO_REG',
+					'FECHA_REG',
+					'USUARIO_MOD',
+					'FECHA_MOD');
+			$crud->fields(
+					'PATH',
+					'DESCRIPCION',
+					'DURACION',
+					'ORDEN',
+					'ESTADO');
+			$crud->display_as('DESCRIPCION', 'Descripción')
+				 ->display_as('PATH','Multimedia')
+				 ->display_as('DURACION','Duración')
+				 ->display_as('ORDEN','Orden')
+				 ->display_as('ESTADO','Estado')
+				 ->display_as('USUARIO_REG','Usuario Registro')
+				 ->display_as('FECHA_REG','Fecha Registro')
+				 ->display_as('USUARIO_MOD','Usuario Modificación')
+				 ->display_as('FECHA_MOD','Fecha Modificación');
+
+			$crud->set_field_upload('PATH',PATH_MULTIMEDIA_DISPLAY);
 
 			$output = $crud->render();
 

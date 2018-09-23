@@ -6,57 +6,62 @@
 <div class="container">
 
 <div class="row">
-          <div class="col-md-12">
-          	<a href="#" class="btn btn-dark btn-lg btn-block btn-huge llamar" data-id="<?php echo $zona; ?>">
+  <div class="col-md-12">
 
-          		<span class="oi oi-icon-bell" title="icon bell" aria-hidden="true"></span> LLAMAR
-          	</a>
-        </div>
+    <span style="display:none" data-id-zona="<?php echo $zona; ?>" class="llamar">Llamar</span>
+
+  	<a href="#" class="btn btn-dark btn-lg btn-block btn-huge pausarAtencion" data-id="<?php echo $this->session->userdata('id_usuario'); ?>" data-id-zona="<?php echo $zona; ?>">
+  		<span class="oi oi-icon-bell" title="icon bell" aria-hidden="true"></span> pausar
+  	</a>
+
+    <a href="#" class="btn btn-dark btn-lg btn-block btn-huge continuarAtencion" data-id="<?php echo $this->session->userdata('id_usuario'); ?>" data-id-zona="<?php echo $zona; ?>">
+      <span class="oi oi-icon-bell" title="icon bell" aria-hidden="true"></span> iniciar/continuar
+    </a>
+
+  </div>
 </div>
-
 <br>
 <br>
 <br>
-<a href="<?php echo base_url();?>Turno" class="btn btn-dark btn-sm btn-huge">
-  <span class="oi oi-icon-bell" title="icon bell" aria-hidden="true"></span> Atrás
+<a href="<?php echo base_url();?>Login/logout" class="btn btn-dark btn-sm btn-huge">
+  <span class="oi oi-icon-bell" title="icon bell" aria-hidden="true"></span> LogOut
 </a>
 <br>
 <br><br>
-
-
-      
-
-       <!--  <h6 class="border-bottom border-gray pb-2 mb-0">Historial de atención</h6>
-        <div class="media text-muted pt-3">
-          <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_165cadd42a5%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_165cadd42a5%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2212.166666746139526%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
-          <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-            <strong class="d-block text-gray-dark">TICKET Nro. XXXXX</strong>            
-          </p>
-        </div>        
-        <small class="d-block text-right mt-3">
-          <a href="#">ver todos</a>
-        </small> -->
-      
-
-
 <?php $this->load->view('commons/modal_llamar'); ?>
 <?php $this->load->view('commons/footer'); ?>
 <script>
+  var operarioDisponibilidad = <?php echo $this->session->userdata('disponibilidad');?>;
+  var tiempoEntreLlamada = <?php echo TIEMPO_ENTRE_LLAMADA; ?>;
+  if(operarioDisponibilidad == 1)
+  {
+    console.log("LLAMAR!!! "+operarioDisponibilidad);
+    setTimeout(function(){
+                  $('.llamar').click();
+              }, tiempoEntreLlamada);
+  }
+  else
+  {
+      console.log("Esperar a que este libre "+operarioDisponibilidad);
+  }
+
   $('.llamar').click(function(){
       var _self = $(this);
-      var id_zona = _self.attr("data-id");
+      var id_zona = _self.attr("data-id-zona");
+      console.log("llamar zona ", id_zona);
       $('.finalizarModal').prop('disabled', true);
       $.ajax({
           url: '<?php echo base_url(); ?>Turno/pedirTicket/'+id_zona,
           type:'POST',
           dataType:'json',
           success: function(respuesta) {
-            if(respuesta.response === 1){              
+            if(respuesta.response === 1){
               llenarModalLlamar(respuesta.ticket, respuesta.llamada);
-              $('#llamarTicket').modal('show');              
-            }else{              
-              llenarMensaje(respuesta.mensaje);
-              $('#mensajeModal').modal('show');
+              $('#llamarTicket').modal('show');
+            }else{
+              // llenarMensaje(respuesta.mensaje);
+              // $('#mensajeModal').modal('show');
+              location.reload();
             }
           },
           error: function(xhr, status) {
@@ -65,7 +70,7 @@
         });
     });
   $('.llamarModal').click(function(){
-    
+
   });
   function llenarMensaje(mensaje){
     $('#mensaje').html();
@@ -95,8 +100,8 @@
   // LLAMAR
   $('.llamarModal').click(function(){
     var _self = $(this);
-    var idTicket = _self.attr("data-id");   
-    $('.finalizarModal').prop('disabled', true); 
+    var idTicket = _self.attr("data-id");
+    $('.finalizarModal').prop('disabled', true);
       $.ajax({
           url: '<?php echo base_url(); ?>Turno/llamarTicker/'+idTicket,
           type:'POST',
@@ -108,6 +113,7 @@
               actualizarLlamar(respuesta.llamada);
               actualizarMensajeLlamada(respuesta.mensaje);
               $('#llamarTicket').modal('hide');
+              location.reload();
             }
           },
           error: function(xhr, status) {
@@ -120,14 +126,14 @@
       $('#llamarTicket').find('#nroLlamada').html('LLAMADA # '+llamada);
   }
   function actualizarMensajeLlamada(mensaje){
-      $('#llamarTicket').find('#llamadaMensaje').html(""); 
-      $('#llamarTicket').find('#llamadaMensaje').html(mensaje); 
+      $('#llamarTicket').find('#llamadaMensaje').html("");
+      $('#llamarTicket').find('#llamadaMensaje').html(mensaje);
   }
   // ATENDER
   $('.atenderModal').click(function(){
     var _self = $(this);
-    var idTicket = _self.attr("data-id");  
-    $('.finalizarModal').prop('disabled', false);  
+    var idTicket = _self.attr("data-id");
+    $('.finalizarModal').prop('disabled', false);
       $.ajax({
           url: '<?php echo base_url(); ?>Turno/iniciarAtencionTicket/'+idTicket,
           type:'POST',
@@ -150,7 +156,7 @@
   //FINALIZAR
   $('.finalizarModal').click(function(){
     var _self = $(this);
-    var idTicket = _self.attr("data-id");    
+    var idTicket = _self.attr("data-id");
       $.ajax({
           url: '<?php echo base_url(); ?>Turno/finalizarAtencionTicket/'+idTicket,
           type:'POST',
@@ -159,10 +165,53 @@
             if(respuesta.response === 1){
               actualizarLlamar(respuesta.mensaje);
               setTimeout($('#llamarTicket').modal('hide'), 3000);
+              location.reload();
             }else if(respuesta.response == 2){
               actualizarMensajeLlamada(respuesta.mensaje);
             }else{
               actualizarLlamar(respuesta.mensaje);
+            }
+          },
+          error: function(xhr, status) {
+                console.log("No se ha podido obtener la información");
+            }
+        });
+  });
+  $(".continuarAtencion").click(function(){
+    var _self = $(this);
+    var idUsuario = _self.attr("data-id");
+    var idZona = _self.attr("data-id-zona");
+    console.log("CONTINUA DE ATENCION ", idUsuario);
+    $.ajax({
+          url: '<?php echo base_url(); ?>Usuario/continuarAtencion/'+idUsuario+"/"+idZona,
+          type:'POST',
+          dataType:'json',
+          success: function(respuesta) {
+            if(respuesta.response === 1){
+              console.log("cambiar estado");
+              location.reload();
+            }else{
+              console.log("nada");
+            }
+          },
+          error: function(xhr, status) {
+                console.log("No se ha podido obtener la información");
+            }
+        });
+  });
+  $(".pausarAtencion").click(function(){
+    var _self = $(this);
+    var idUsuario = _self.attr("data-id");
+    var idZona = _self.attr("data-id-zona");
+    $.ajax({
+          url: '<?php echo base_url(); ?>Usuario/pausarAtencion/'+idUsuario+"/"+idZona,
+          type:'POST',
+          dataType:'json',
+          success: function(respuesta) {
+            if(respuesta.response === 1){
+              location.reload();
+            }else{
+              console.log("Sigue en pausa");
             }
           },
           error: function(xhr, status) {

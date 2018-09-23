@@ -93,6 +93,8 @@ define('ENCABEZADO_TK','BIENVENIDO A ');
 define('SUCURSAL_TK','SUCURSAL-01');
 /* MAXIMO DE LLAMADAS*/
 define('MAX_LLAMADAS', 3);
+/* TIEMPO DE ESPERA ENTRE LlAMADAS EXPRESADO EN MILISEGUNDOS */
+define('TIEMPO_ENTRE_LLAMADA', 15000);
 /* DISPLAY TEXT */
 define('BIENVENIDO_DISPLAY', 'BIENVENIDOS A '.NOMBRE_EMP);
 /* CONSTANTES DE SISTEMA */
@@ -106,7 +108,6 @@ define('ON_DISPLAY_BLINK', 3); // MOSTRAR
 define('ON_DISPLAY_FIN', 2); // SE FINALIZO, SE FUE
 define('ON_DISPLAY_TRUE', 1); // MOSTRAR
 define('ON_DISPLAY_FALSE', 0); // ESPERANDO
-
 /* ESTADOS TICKETS */
 define('TK_EST_1','1'); //recien imprimio
 define('TK_EST_2','2'); // lo estan llamando
@@ -120,6 +121,11 @@ define('EST_INICIO_ATENCION','2');
 define('EST_FINALIZADO','3');
 define('EST_DERIVADO','4');
 define('EST_SIN_ATENDER', '5');
+/* ESTADOS DE OPERARIO */
+define('EST_OPERARIO_LIBRE', 1);
+define('EST_OPERARIO_ATENCION', 2);
+define('EST_OPERARIO_PAUSA_INICIO', 3);
+define('EST_OPERARIO_PAUSA_FIN', 4);
 /*LEYENDA TICKETS*/
 define('LEYENDA_TK','Conserve su ticket para cualquier reclamo. Ley 2018');
 define('COPYRIGHT','Todos los Derechos Reservados &copy; ET, 2018');
@@ -129,3 +135,6 @@ define('MSG_MAX_LLAMADAS','Este ticket sera cerrado, cumplio el maximo de llamad
 define('MSG_OK_TICKET','Ticket recuperado');
 define('MSG_TK_INICIO_ATENCION', 'Atendiendo el ticket');
 define('MSG_TK_FIN_ATENCION', 'Finalizado el ticket');
+/* PATH PARA ARCHIVOS */
+define('PATH_ICONO_CATEGORIA', 'public/imgs/categoria');
+define('PATH_MULTIMEDIA_DISPLAY', 'public/multimedia/');

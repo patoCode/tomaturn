@@ -15,6 +15,7 @@
 				<?php foreach ($zonas as $zona):?>
 					<a href="<?php echo base_url(); ?>Ticketero/categoriasZona/<?php echo $zona->ID_ZONA ?>" type="button" class="btn btn-lg btn-block btn-outline-primary imprimir" data-id="<?php echo $zona->ID_ZONA ?>"><?php echo $zona->NOMBRE; ?></a>
 				<?php endforeach; ?>
+				
 			</div>
         </div>
 		

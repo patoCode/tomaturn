@@ -12,4 +12,12 @@ class Estacion_model extends CI_Model
 		$query = $this->db->get();
 		return $query->row();
     }
+    public function getByIdUsuario($idUsuario)
+    {
+        $this->db->from('tk_usuario_estacion');
+        $this->db->where('id_usuario', $idUsuario);
+        $this->db->where('estado', EST_ACTIVO);
+        $query = $this->db->get();
+        return $query->row();
+    }
 }
