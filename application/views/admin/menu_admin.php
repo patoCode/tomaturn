@@ -6,6 +6,24 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
 
+          <li class="nav-item active">
+            <a class="nav-link" href="<?php echo base_url();?>administrar/administrarPersona">Persona</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="<?php echo base_url();?>administrar/administrarUsuario">Usuario</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="<?php echo base_url();?>administrar/administrarEstacion">Estación</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="<?php echo base_url();?>administrar/administrarZonaAtencion">Zona Atención</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="<?php echo base_url();?>administrar/administrarCategoria">Categoría</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="<?php echo base_url();?>administrar/administrarMultimedia">Multimedia <span class="sr-only">(current)</span></a>
+          </li>
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Asignaciones</a>
