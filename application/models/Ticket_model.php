@@ -27,7 +27,10 @@ class Ticket_model extends CI_Model
         $this->db->order_by('prioridad','desc');
         $this->db->limit(1);
         $query = $this->db->get();
-        return $query->row();
+        if($query->num_rows() > 0)
+            return $query->row();
+        else
+            return null;
     }
     public function insert($data)
     {

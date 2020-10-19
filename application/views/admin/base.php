@@ -13,9 +13,8 @@
 </head>
 <body>
 	<?php $this->load->view('admin/menu_admin') ?>
-    <div class="container">
+    <div class="container-fluid p-3">
         <?php if(isset($output)): ?>
-        	<div style='height:20px;'></div>  
             <div style="padding: 10px">
         		<?php echo $output; ?>
             </div>
@@ -29,6 +28,6 @@
             <script src="<?php echo $file; ?>"></script>
         <?php endforeach; ?>
         <?php endif; ?>
-    </div>  
+    </div>
 </body>
 </html>

@@ -9,7 +9,7 @@ class Zona_model extends CI_Model
     {
         $this->db->from('tk_zona_atencion');
         $this->db->where('estado', EST_ACTIVO);
-        $this->db->where('estado_reg', EST_ACTIVO);
+        $this->db->where('estado_reg', ESTREG_ACTIVO);
         $query = $this->db->get();
         return $query->result();
     }
@@ -17,12 +17,12 @@ class Zona_model extends CI_Model
     {
         $this->db->select('tk_zona_atencion.*');
         $this->db->from('tk_zona_atencion');
-        $this->db->join('tk_usuario_zona', 'tk_usuario_zona.id_zona = tk_zona_atencion.id_zona');        
+        $this->db->join('tk_usuario_zona', 'tk_usuario_zona.id_zona = tk_zona_atencion.id_zona');
         $this->db->where('tk_zona_atencion.estado', EST_ACTIVO);
         $this->db->where('tk_usuario_zona.id_usuario', $id);
         $query = $this->db->get();
         return $query->result();
-       
+
     }
     public function insert($data)
     {

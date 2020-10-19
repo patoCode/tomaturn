@@ -1,26 +1,20 @@
 <?php $this->load->view('commons/header');	?>
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-	<h1 class="display-4">DISPENSADOR</h1>
-  	<!-- <p class="lead">
-  		Lorem ipsum dolor sit amet.
-		</p> -->
-</div>
 <div class="container">
 	<?php if(count($categorias) > 0): ?>
       <div class="card-deck mb-3 text-center">
       	<?php foreach ($categorias as $categoria):?>
         <div class="card mb-2 box-shadow">
 			<div class="card-header">
-				<h4 class="my-0 font-weight-normal"><?php echo $categoria->NOMBRE; ?></h4>
+				<h4 class="card-title pricing-card-title"><?php echo $categoria->CODIGO;?></h4>
 			</div>
 			<div class="card-body">
-				<h1 class="card-title pricing-card-title"><?php echo $categoria->CODIGO;?>
-
-			</h1>
+				<h1 class="my-0 font-weight-normal"><?php echo $categoria->NOMBRE; ?></h1>
 				<p>
 					<?php $categoria->DESCRIPCION; ?>
 				</p>
-				<button type="button" class="btn btn-lg btn-block btn-outline-primary imprimir" data-id="<?php echo $categoria->ID_CATEGORIA_ZONA; ?>">IMPRIMIR</button>
+				<button type="button" class="btn btn-lg btn-block btn-outline-dark imprimir" data-id="<?php echo $categoria->ID_CATEGORIA_ZONA; ?>">
+					<i class="fa fa-print"></i>
+				</button>
 			</div>
         </div>
 		<?php endforeach; ?>
@@ -42,6 +36,9 @@
 						modalTicketReset();
 						modalPreviewTicket(respuesta);
 						$('#ticket').modal('show');
+						setInterval(function(){
+							window.location.href = "<?php echo base_url().'Ticketero' ?>";
+						}, 5000);
 					}else{
 						console.log("ERROR " + respuesta);
 					}
@@ -60,7 +57,7 @@
 		$('#ticket').find('#ticketNro').html(" "+ data.ticket.codigo);
 		$('#ticket').find('#fechaTK').html("Fecha: "+ data.ticket.fecha_impresion);
 		$('#ticket').find('#horaTK').html("Hora: "+ data.ticket.hora_impresion);
-		
+
 	}
 	function formatFecha(argument) {
 		// body...

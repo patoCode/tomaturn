@@ -48,20 +48,22 @@ body {
 </style>
 <body class="text-center">
     <form class="form-signin" action="<?php echo base_url()?>Login/checkOperarioLogin" method="POST">
-      
+
       <h1 class="h3 mb-3 font-weight-normal">Ingrese sus datos</h1>
-      
+
       <label for="inputEmail" class="sr-only">Usuario</label>
       <input type="text" name="username" class="form-control" placeholder="Usuario" required="" autofocus="">
       <br>
       <label for="inputPassword" class="sr-only">Contraseña</label>
       <input type="password" name="password" class="form-control" placeholder="Contraseña" required="">
-      
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar sesión</button>
-      
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">
+        <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+      </button>
+
       <p class="mt-5 mb-3 text-muted"><?php echo COPYRIGHT; ?></p>
     </form>
-  
+
 
 </body>
 </html>

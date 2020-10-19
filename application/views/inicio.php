@@ -1,7 +1,10 @@
 <?php $this->load->view('commons/header');	?>
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-	<h3 class="display-4"><?php echo NOMBRE_SIS; ?></h3>
-
+<div class="jumbotron">
+	<div class="container">
+		<h3>
+			<?php echo NOMBRE_SIS; ?>
+		</h3>
+	</div>
 </div>
 <div class="container">
 
@@ -22,7 +25,7 @@
 			</div>
 			</div>
         </div>
-        
+
 
         <div class="col-md-6 box-shadow">
         	<div class="card">
@@ -66,7 +69,7 @@
 				<p>
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure consequuntur, iste libero ducimus quaerat natus, ratione voluptatum harum, numquam eius vel itaque perferendis soluta dolorem, quis minima sed unde praesentium!
 				</p>
-				
+
 				<a href="<?php echo base_url(); ?>Turno/display" type="button" class="btn btn-lg btn-block btn-outline-primary">
 				ACCEDER</a>
 			</div>
@@ -74,8 +77,8 @@
         </div>
 
 
-</div>      	 
-     
+</div>
+
 
 <?php $this->load->view('commons/footer'); ?>
 

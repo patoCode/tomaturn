@@ -14,6 +14,7 @@ class UsuarioEstacion_model extends CI_Model
     	$this->db->where('id_usuario', $idUsuario);
     	$this->db->where('tk_usuario_estacion.estado', EST_ACTIVO);
 		$query = $this->db->get();
+
         return $query->row();
     }
 }

@@ -9,5 +9,6 @@
 	<title> TICK[ET]</title>
 	<link href="<?php echo base_url()?>public/vista/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?php echo base_url()?>public/vista/open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+	<link href="<?php echo base_url()?>public/vista/fontawesome/css/all.css" rel="stylesheet">
 	<link href="<?php echo base_url()?>public/vista/ticket/css/ticket.css" rel="stylesheet">
 </head>

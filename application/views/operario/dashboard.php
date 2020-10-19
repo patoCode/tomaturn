@@ -7,24 +7,26 @@
 
 <div class="row">
   <div class="col-md-12">
+    <button class="btn btn-dark btn-lg btn-block btn-huge llamar" data-id-zona="<?php echo $zona; ?>"> <i class="fa fa-bell"></i> Llamar </button>
 
-    <span style="display:none" data-id-zona="<?php echo $zona; ?>" class="llamar">Llamar</span>
-
-  	<a href="#" class="btn btn-dark btn-lg btn-block btn-huge pausarAtencion" data-id="<?php echo $this->session->userdata('id_usuario'); ?>" data-id-zona="<?php echo $zona; ?>">
+  	<!-- <a href="#" class="btn btn-dark btn-lg btn-block btn-huge pausarAtencion" data-id="<?php echo $this->session->userdata('id_usuario'); ?>" data-id-zona="<?php echo $zona; ?>">
   		<span class="oi oi-icon-bell" title="icon bell" aria-hidden="true"></span> pausar
   	</a>
 
     <a href="#" class="btn btn-dark btn-lg btn-block btn-huge continuarAtencion" data-id="<?php echo $this->session->userdata('id_usuario'); ?>" data-id-zona="<?php echo $zona; ?>">
       <span class="oi oi-icon-bell" title="icon bell" aria-hidden="true"></span> iniciar/continuar
-    </a>
+    </a> -->
+
+    <div id="empty" class="mt-3 alert alert-danger" style="display:none">
+    </div>
 
   </div>
 </div>
 <br>
 <br>
 <br>
-<a href="<?php echo base_url();?>Login/logout" class="btn btn-dark btn-sm btn-huge">
-  <span class="oi oi-icon-bell" title="icon bell" aria-hidden="true"></span> LogOut
+<a href="<?php echo base_url();?>Login/logout" class="btn btn-danger btn-lg btn-huge">
+   <i class="fas fa-sign-out-alt"></i> Salir
 </a>
 <br>
 <br><br>
@@ -33,19 +35,20 @@
 <script>
   var operarioDisponibilidad = <?php echo $this->session->userdata('disponibilidad');?>;
   var tiempoEntreLlamada = <?php echo TIEMPO_ENTRE_LLAMADA; ?>;
-  if(operarioDisponibilidad == 1)
-  {
-    console.log("LLAMAR!!! "+operarioDisponibilidad);
-    setTimeout(function(){
-                  $('.llamar').click();
-              }, tiempoEntreLlamada);
-  }
-  else
-  {
-      console.log("Esperar a que este libre "+operarioDisponibilidad);
-  }
+  // if(operarioDisponibilidad == 1)
+  // {
+  //   console.log("LLAMAR!!! "+operarioDisponibilidad);
+  //   setTimeout(function(){
+  //                 $('.llamar').click();
+  //             }, tiempoEntreLlamada);
+  // }
+  // else
+  // {
+  //     console.log("Esperar a que este libre "+operarioDisponibilidad);
+  // }
 
   $('.llamar').click(function(){
+    // $('#llamarTicket').modal('show')
       var _self = $(this);
       var id_zona = _self.attr("data-id-zona");
       console.log("llamar zona ", id_zona);
@@ -56,12 +59,13 @@
           dataType:'json',
           success: function(respuesta) {
             if(respuesta.response === 1){
-              llenarModalLlamar(respuesta.ticket, respuesta.llamada);
-              $('#llamarTicket').modal('show');
+              console.log(respuesta)
+              llenarModalLlamar(respuesta.ticket, respuesta.llamada)
+              $('#llamarTicket').modal('show')
             }else{
-              // llenarMensaje(respuesta.mensaje);
-              // $('#mensajeModal').modal('show');
-              location.reload();
+              $('#empty').text(respuesta.mensaje)
+              $('#empty').toggle();
+              // location.reload();
             }
           },
           error: function(xhr, status) {
@@ -69,6 +73,7 @@
             }
         });
     });
+
   $('.llamarModal').click(function(){
 
   });
@@ -95,7 +100,6 @@
     $('.derivarModal').attr({
       'data-id': ticket.ID_TICKET
     });
-
   }
   // LLAMAR
   $('.llamarModal').click(function(){
@@ -108,9 +112,9 @@
           dataType:'json',
           success: function(respuesta) {
             if(respuesta.response === 1){
-              actualizarLlamar(respuesta.llamada);
+              actualizarLlamar('LLAMADA # '+respuesta.llamada);
             }else{
-              actualizarLlamar(respuesta.llamada);
+              actualizarLlamar('LLAMADA # '+respuesta.llamada);
               actualizarMensajeLlamada(respuesta.mensaje);
               $('#llamarTicket').modal('hide');
               location.reload();
@@ -123,7 +127,7 @@
   });
   function actualizarLlamar(llamada) {
       $('#llamarTicket').find('#nroLlamada').html("");
-      $('#llamarTicket').find('#nroLlamada').html('LLAMADA # '+llamada);
+      $('#llamarTicket').find('#nroLlamada').html(llamada);
   }
   function actualizarMensajeLlamada(mensaje){
       $('#llamarTicket').find('#llamadaMensaje').html("");
@@ -133,6 +137,8 @@
   $('.atenderModal').click(function(){
     var _self = $(this);
     var idTicket = _self.attr("data-id");
+    $('.llamarModal').prop('disabled', true);
+    $('.atenderModal').prop('disabled', true);
     $('.finalizarModal').prop('disabled', false);
       $.ajax({
           url: '<?php echo base_url(); ?>Turno/iniciarAtencionTicket/'+idTicket,

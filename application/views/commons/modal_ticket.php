@@ -13,15 +13,14 @@
             <br>
             <?php echo WEB_EMPRESA; ?>
           </h5>
-      		<h1 id="ticketNro"></h1> 
+      		<h1 id="ticketNro"></h1>
           <ul>
             <li>
               <?php echo SUCURSAL_TK; ?>
             </li>
             <li id="fechaTK"></li>
             <li id="horaTK"></li>
-            
-          </ul>     	
+          </ul>
       </div>
       <div class="modal-footer">
         <p><?php echo LEYENDA_TK; ?></p>

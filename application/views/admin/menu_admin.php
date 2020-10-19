@@ -6,31 +6,39 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
 
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="<?php echo base_url();?>administrar/administrarPersona">Persona</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="<?php echo base_url();?>administrar/administrarUsuario">Usuario</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="<?php echo base_url();?>administrar/administrarEstacion">Estación</a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="<?php echo base_url();?>administrar/administrarZonaAtencion">Zona Atención</a>
+          <li class="nav-item ">
+            <a class="nav-link" href="<?php echo base_url();?>administrar/administrarZonaAtencion">Zona de Atención</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="<?php echo base_url();?>administrar/administrarCategoria">Categoría</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="<?php echo base_url();?>administrar/administrarMultimedia">Multimedia <span class="sr-only">(current)</span></a>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Asignaciones</a>
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Asignaciones</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
               <a class="dropdown-item" href="<?php echo base_url();?>administrar/administrarUsuarioEstacion">Usuario-Estacion</a>
               <a class="dropdown-item" href="<?php echo base_url();?>administrar/administrarUsuarioZona">Usuario-Zona</a>
               <a class="dropdown-item" href="<?php echo base_url();?>administrar/administrarCategoriaZona">Categoría-Zona</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="reportes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reportes</a>
+            <div class="dropdown-menu" aria-labelledby="reportes">
+              <a class="dropdown-item" href="">R1</a>
+              <a class="dropdown-item" href="">R2</a>
+              <a class="dropdown-item" href="">R3</a>
             </div>
           </li>
         </ul>

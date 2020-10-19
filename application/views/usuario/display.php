@@ -6,9 +6,9 @@
 	</h3>
 </div>
 
-<video autoplay muted id="myVideo">
+<!-- <video autoplay muted id="myVideo">
   <source src="<?php echo base_url().PATH_MULTIMEDIA_DISPLAY.$multimedia->PATH;?>">
-</video>
+</video> -->
 
 <!-- Optional: some overlay text to describe the video -->
 <div class="content" id="llamadas">

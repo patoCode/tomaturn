@@ -34,7 +34,7 @@ class Turno extends CI_Controller {
         $ticket         = $this->getNextTicket($idZona, $fecha);
         $estacion       = $this->eu->getEstacionByUsuarioZona($id_usuario, $idZona);
 
-        if(count($ticket) > 0 && $estacion != null)
+        if( $ticket != null && $estacion != null)
         {
             $this->tk->updateEstado($ticket->ID_TICKET, TK_EST_2 );
             $this->tk->updateOnDisplay($ticket->ID_TICKET, ON_DISPLAY_BLINK );
