@@ -4,12 +4,15 @@
 	<meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tick[ET]</title>
-<?php $this->load->view('commons/header'); ?>
-<?php if(isset($output)): ?>
-<?php foreach($css_files as $file): ?>
-	   <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
-<?php endforeach; ?>
-<?php endif; ?>
+    <link rel="icon" type="image/png" href="<?php echo base_url()?>public/tomaturn/iconos/main.png"/>
+
+        <?php $this->load->view('commons/header'); ?>
+
+        <?php if(isset($output)): ?>
+            <?php foreach($css_files as $file): ?>
+                <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
+            <?php endforeach; ?>
+        <?php endif; ?>
 </head>
 <body>
 	<?php $this->load->view('admin/menu_admin') ?>

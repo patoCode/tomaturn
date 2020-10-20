@@ -7,6 +7,8 @@ class Usuario extends CI_Controller {
     {
 		parent::__construct();
         $this->load->model('UsuarioBitacora_model','ubm');
+        $this->load->model('Zona_model','zona');
+        $this->load->model('Ticket_model','ticket');
     }
     public function pausarAtencion($idUsuario, $idZona)
     {
@@ -26,6 +28,7 @@ class Usuario extends CI_Controller {
         $respuesta = array('response' => 1, 'mensaje' => "PAUSA DE ATENCIÓN ".$fecha_de_hoy);
         echo json_encode($respuesta);
         $this->session->set_userdata( $array );
+
     }
     public function continuarAtencion($idUsuario, $idZona)
     {
@@ -47,5 +50,22 @@ class Usuario extends CI_Controller {
         $respuesta = array('response' => 1, 'mensaje' => "PAUSA DE ATENCIÓN ".$fecha_de_hoy);
         echo json_encode($respuesta);
     }
+    public function zona()
+    {
+        $zonas = $this->zona->getZonasByUsuario($this->session->userdata('id_usuario'));
+        $hoy = date("Y-m-d");
+        $newZona = array();
+        $zonasList = array();
+        foreach ($zonas as $zona) {
+            $zona->cantidad_pendientes = $this->ticket->getQtyTicketsByZona($zona->ID_ZONA, $hoy);
+        }
+        $data['zonas'] = $zonas;
+        $this->load->view('operario/zona', $data);
+    }
+    public function admin()
+    {
+        $this->load->view('admin/base');
+    }
+
 
 }

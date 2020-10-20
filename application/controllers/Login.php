@@ -34,7 +34,7 @@ class Login extends CI_Controller
                             'username'     => $check_user->NOMBRE_USUARIO
                          );
             $this->session->set_userdata($data_session);
-            $this->load->view('admin/base');
+            redirect('Usuario/admin','refresh');
         }
         else
         {
@@ -59,8 +59,7 @@ class Login extends CI_Controller
                             'estacion'       => $estacion->ID_ESTACION
                          );
             $this->session->set_userdata($data_session);
-            $data['zonas'] = $this->zona->getActivas();
-            $this->load->view('operario/zona', $data);
+            redirect('Usuario/zona','refresh');
         }
         else
         {

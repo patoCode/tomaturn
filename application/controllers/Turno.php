@@ -22,7 +22,8 @@ class Turno extends CI_Controller {
     }
     public function dashboard($idZona)
     {
-        $data['zona'] = $idZona;
+        $data['zona'] = $this->zona->getZona($idZona);
+        $data['atendidos'] = $this->ba->getAtendidosByUsuario($this->session->userdata('id_usuario'));
         $this->load->view('operario/dashboard', $data);
     }
     public function pedirTicket($idZona)
@@ -239,8 +240,8 @@ class Turno extends CI_Controller {
             array_push($array_tickets_vista, $elemento);
         }
         $multimedia = $this->multimedia->getActivo();
-        $data = array('reproducido'=>$multimedia->REPRODUCIDO + 1);
-        $this->multimedia->updateReporudccion($data, $multimedia->ID_MULTIMEDIA);
+        //$data = array('reproducido'=>$multimedia->REPRODUCIDO + 1);
+        //$this->multimedia->updateReporudccion($data, $multimedia->ID_MULTIMEDIA);
 
         $data['multimedia'] = $multimedia;
         $data['tickets'] = $array_tickets_vista;

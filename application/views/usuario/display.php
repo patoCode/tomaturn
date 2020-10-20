@@ -1,43 +1,54 @@
 <?php $this->load->view('commons/header');	?>
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-	<h1 class="display-4"><?php echo BIENVENIDO_DISPLAY; ?></h1>
-  	<h3 class="display-6">
-  		ZONA DE ESPERA
-	</h3>
-</div>
-
-<!-- <video autoplay muted id="myVideo">
-  <source src="<?php echo base_url().PATH_MULTIMEDIA_DISPLAY.$multimedia->PATH;?>">
-</video> -->
-
-<!-- Optional: some overlay text to describe the video -->
-<div class="content" id="llamadas">
-
-		<div class="card-deck mb-3 text-center">
-      	<?php foreach ($tickets as $tk):?>
-        <div class="card mb-2 box-shadow alert
-        	<?php if($tk->blink == ON_DISPLAY_BLINK): ?>
-        		alert-danger blink_me
-			<?php elseif($tk->blink == ON_DISPLAY_TRUE): ?>
-				alert-success
-			<?php endif; ?>
-				">
-			<div class="card-body">
-		            <ul class="list-unstyled mt-3 mb-4">
-		              <li>Ticket <span id="siguiente"><?php echo $tk->ticket_codigo ?></span></li>
-		              <li>Pase a <span id="estacionAtencion"><?php echo $tk->estacion ?></span></li>
-		            </ul>
-			</div>
+<body>
+<div class="container" id="titulo">
+    <div class="row">
+        <div class="col-md-12 fixed-top bg-ticket-transparent text-center">
+        	<h1 class="display-4 font-weight-bold"><?php echo BIENVENIDO_DISPLAY; ?></h1>
+          	<h3 class="display-6">
+          		ZONA DE ESPERA
+        	</h3>
         </div>
-		<?php endforeach; ?>
-      </div>
+    </div>
+<?php if($multimedia != null): ?>
+<div class="row" id="video">
+    <video muted autoplay='autoplay' loop='loop' id="myVideo">
+        <source src="<?php echo base_url().PATH_MULTIMEDIA_DISPLAY.$multimedia->PATH;?>">
+    </video>
 </div>
-<?php $this->load->view('commons/footer'); ?>
-<?php $this->load->view('commons/modal_ticket'); ?>
+<?php endif; ?>
+<div class="row fixed-bottom bg-ticket-transparent p-4" id="llamadas">
+        <?php foreach ($tickets as $tk):?>
+        <div class="col text-center">
+            <div class="card mb-2 box-shadow alert
+                <?php if($tk->blink == ON_DISPLAY_BLINK): ?>
+                    alert-danger blink_me
+                <?php elseif($tk->blink == ON_DISPLAY_TRUE): ?>
+                    alert-success
+                <?php endif; ?>
+                    ">
+                <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>
+                            <h1 class="display-4 font-weight-bold" id="siguiente"><?php echo $tk->ticket_codigo ?></h1>
+                        </li>
+                        <li>
+                            <?php if($tk->blink == ON_DISPLAY_TRUE): ?>
+                                <h3>Esta siendo atendido en: <span id="estacionAtencion" class="font-weight-bold"><?php echo $tk->estacion ?></span></h3>
+                            <?php else: ?>
+                                <h3>Pase a <span id="estacionAtencion"><?php echo $tk->estacion ?></span></h3>
+                            <?php endif; ?>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+</div>
+
+<?php $this->load->view('commons/scripts'); ?>
 <script>
-	setInterval(function() {
-		$("#myVideo").load(" #myVideo > *","");
-	}, <?php echo $multimedia->DURACION*1000; ?>);
+
+
 	setInterval(function() {
 		$("#llamadas").load(" #llamadas > *","");
 	}, 3000);
@@ -45,7 +56,6 @@
 	    $('.blink_me').fadeOut(400);
 	    $('.blink_me').fadeIn(400);
 	}
-
 	setInterval(blinker, 1000);
 </script>
 
@@ -53,10 +63,12 @@
 /* Style the video: 100% width and height to cover the entire window */
 #myVideo {
     position: fixed;
+    top: 10;
     right: 0;
     bottom: 0;
     min-width: 100%;
     min-height: 100%;
+    z-index: 0;
 }
 
 /* Add some content at the bottom of the video/page */
@@ -85,3 +97,5 @@
     color: black;
 }
 </style>
+</div>
+</body>

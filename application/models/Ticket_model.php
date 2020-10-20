@@ -32,6 +32,19 @@ class Ticket_model extends CI_Model
         else
             return null;
     }
+    public function getQtyTicketsByZona($idZona, $fecha)
+    {
+        $this->db->from('tk_ticket');
+        $this->db->where('id_zona', $idZona);
+        $this->db->where('estado', TK_EST_1);
+        $this->db->where('fecha_impresion', $fecha);
+        $this->db->order_by('prioridad','desc');
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+            return $query->num_rows();
+        else
+            return 0;
+    }
     public function insert($data)
     {
         return $this->db->insert('tk_ticket', $data);

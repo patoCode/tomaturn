@@ -1,35 +1,71 @@
 <?php $this->load->view('commons/header');	?>
+<?php $this->load->view('operario/menu_operador');  ?>
+
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-	<h1 class="display-4">ATENCI&Oacute;N</h1>
-  <h3><?php echo $this->session->userdata('username'); ?></h3>
+  <h3 class="display-4">
+    <?php echo $zona->NOMBRE; ?>
+  </h3>
+  <p>
+    Pulse el boton "llamar" para comenzar la atencion
+  </p>
+
 </div>
 <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-dark btn-lg btn-block btn-huge llamar" data-id-zona="<?php echo $zona->ID_ZONA; ?>"> <i class="fa fa-bell"></i> Llamar </button>
 
-<div class="row">
-  <div class="col-md-12">
-    <button class="btn btn-dark btn-lg btn-block btn-huge llamar" data-id-zona="<?php echo $zona; ?>"> <i class="fa fa-bell"></i> Llamar </button>
+      	<!-- <a href="#" class="btn btn-dark btn-lg btn-block btn-huge pausarAtencion" data-id="<?php echo $this->session->userdata('id_usuario'); ?>" data-id-zona="<?php echo $zona->ID_ZONA; ?>">
+      		<span class="oi oi-icon-bell" title="icon bell" aria-hidden="true"></span> pausar
+      	</a>
 
-  	<!-- <a href="#" class="btn btn-dark btn-lg btn-block btn-huge pausarAtencion" data-id="<?php echo $this->session->userdata('id_usuario'); ?>" data-id-zona="<?php echo $zona; ?>">
-  		<span class="oi oi-icon-bell" title="icon bell" aria-hidden="true"></span> pausar
-  	</a>
+        <a href="#" class="btn btn-dark btn-lg btn-block btn-huge continuarAtencion" data-id="<?php echo $this->session->userdata('id_usuario'); ?>" data-id-zona="<?php echo $zona->ID_ZONA; ?>">
+          <span class="oi oi-icon-bell" title="icon bell" aria-hidden="true"></span> iniciar/continuar
+        </a> -->
 
-    <a href="#" class="btn btn-dark btn-lg btn-block btn-huge continuarAtencion" data-id="<?php echo $this->session->userdata('id_usuario'); ?>" data-id-zona="<?php echo $zona; ?>">
-      <span class="oi oi-icon-bell" title="icon bell" aria-hidden="true"></span> iniciar/continuar
-    </a> -->
-
-    <div id="empty" class="mt-3 alert alert-danger" style="display:none">
+        <div id="empty" class="mt-3 alert alert-danger" style="display:none">
+        </div>
     </div>
-
   </div>
-</div>
-<br>
-<br>
-<br>
-<a href="<?php echo base_url();?>Login/logout" class="btn btn-danger btn-lg btn-huge">
-   <i class="fas fa-sign-out-alt"></i> Salir
-</a>
-<br>
-<br><br>
+  <!-- tabla de atendidos -->
+  <?php if($atendidos != null): ?>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mt-2">
+        <div class="card-header bg-success">
+          <h3 >Mis atenciones</h3>
+        </div>
+        <div class="card-body">
+          <table class="table table-hover table-bordered">
+            <thead class="thead-dark text-center">
+              <tr>
+                <th>
+                  CODIGO
+                </th>
+                <th>
+                  ESTADO
+                </th>
+                <th>
+                  ACCION
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($atendidos as $ticket): ?>
+              <tr>
+                <td> <?php echo $ticket->CODIGO; ?> </td>
+                <td> <?php echo $ticket->ESTADO; ?> </td>
+              </tr>
+            <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+<?php endif; ?>
+
 <?php $this->load->view('commons/modal_llamar'); ?>
 <?php $this->load->view('commons/footer'); ?>
 <script>

@@ -5,6 +5,19 @@ class Zona_model extends CI_Model
     {
         parent::__construct();
     }
+    public function getZona($id)
+    {
+
+        $this->db->from('tk_zona_atencion');
+        $this->db->where('id_zona', $id);
+        $this->db->where('estado', EST_ACTIVO);
+        $this->db->where('estado_reg', ESTREG_ACTIVO);
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+            return $query->row();
+        else
+          return null;
+    }
     public function getActivas()
     {
         $this->db->from('tk_zona_atencion');
@@ -22,7 +35,6 @@ class Zona_model extends CI_Model
         $this->db->where('tk_usuario_zona.id_usuario', $id);
         $query = $this->db->get();
         return $query->result();
-
     }
     public function insert($data)
     {

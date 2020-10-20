@@ -130,7 +130,8 @@ define('EST_OPERARIO_ATENCION', 2);
 define('EST_OPERARIO_PAUSA_INICIO', 3);
 define('EST_OPERARIO_PAUSA_FIN', 4);
 /*LEYENDA TICKETS*/
-define('LEYENDA_TK','Conserve su ticket para cualquier reclamo. Ley 2018');
+define('LEYENDA_TK_1','Observe en la pantalla el numero de ventanilla en la cual sera atendido');
+define('LEYENDA_TK_2','si su tiempo de espera supera los 30 min. puede registrar su reclamo en el Punto de Reclamo - PR');
 define('COPYRIGHT','Todos los Derechos Reservados &copy; ET, 2020');
 /* MENSAJES*/
 define('MSG_NO_TICKET','NO hay tickets para su atención');

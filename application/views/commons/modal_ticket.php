@@ -9,21 +9,21 @@
         </button>
       </div>
       <div class="modal-body" id="detalleTicket">
-          <h5><?php echo ENCABEZADO_TK." ".NOMBRE_EMP ?>
+          <h5 class="text-center"><?php echo ENCABEZADO_TK." ".NOMBRE_EMP ?>
             <br>
             <?php echo WEB_EMPRESA; ?>
+            <br>
+            <?php echo SUCURSAL_TK; ?>
           </h5>
-      		<h1 id="ticketNro"></h1>
-          <ul>
-            <li>
-              <?php echo SUCURSAL_TK; ?>
-            </li>
-            <li id="fechaTK"></li>
-            <li id="horaTK"></li>
+      		<h1 id="ticketNro" class="text-center font-weight-bold" ></h1>
+          <ul class="list-inline font-weight-bold">
+            <li id="fechaTK" class="list-inline-item"></li>
+            <li id="horaTK" class="list-inline-item"></li>
           </ul>
-      </div>
-      <div class="modal-footer">
-        <p><?php echo LEYENDA_TK; ?></p>
+          <ul class="list-inline">
+            <li class="list-inline-item"><?php echo LEYENDA_TK_1; ?></li>
+            <li class="list-inline-item"><?php echo LEYENDA_TK_2; ?> </li>
+          </ul>
       </div>
     </div>
   </div>

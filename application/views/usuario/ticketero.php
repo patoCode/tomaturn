@@ -1,21 +1,29 @@
 <?php $this->load->view('commons/header');	?>
+<?php if (ENVIRONMENT=='development'):?>
+	<div class="bg-secondary border-0 p-5 text-center">
+		<h1 class="display-4 font-weight-bold">CATEGORIAS DE ZONA</h1>
+	</div>
+<?php endif; ?>
 <div class="container">
+
 	<?php if(count($categorias) > 0): ?>
-      <div class="card-deck mb-3 text-center">
+      <div class="row align-items-center">
       	<?php foreach ($categorias as $categoria):?>
-        <div class="card mb-2 box-shadow">
-			<div class="card-header">
-				<h4 class="card-title pricing-card-title"><?php echo $categoria->CODIGO;?></h4>
-			</div>
-			<div class="card-body">
-				<h1 class="my-0 font-weight-normal"><?php echo $categoria->NOMBRE; ?></h1>
-				<p>
-					<?php $categoria->DESCRIPCION; ?>
-				</p>
-				<button type="button" class="btn btn-lg btn-block btn-outline-dark imprimir" data-id="<?php echo $categoria->ID_CATEGORIA_ZONA; ?>">
-					<i class="fa fa-print"></i>
-				</button>
-			</div>
+        <div class="col-md-4 mb-2">
+        	<div class="card border-0 mb-2 box-shadow">
+				<div class="card-body">
+					<button type="button"
+							class="py-5 rounded-0 text-uppercase btn btn-lg btn-dark btn-block w-100 imprimir"
+							data-id="<?php echo $categoria->ID_CATEGORIA_ZONA; ?>"
+					>
+						<img class="rounded-circle"
+							style="width: 75px; height: 75px;"
+							 src="<?php echo base_url('public/tomaturn/iconos/').$categoria->ICONO; ?>" alt="<?php echo $categoria->NOMBRE; ?>">
+
+						<h2 class="font-weight-bold "><?php echo $categoria->NOMBRE; ?></h2>
+					</button>
+				</div>
+	        </div>
         </div>
 		<?php endforeach; ?>
       </div>

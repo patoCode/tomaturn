@@ -15,7 +15,7 @@
       </div>
       <div class="modal-body" id="detalleTicket">
           <h4 id="accionTicket"></h4>
-          <div id="llamadaMensaje" class="alert alert-danger" role="alert"></div>
+          <!-- <div id="llamadaMensaje" class="alert alert-danger" role="alert"></div> -->
           <div class="row">
 
             <div class="col-md-3">

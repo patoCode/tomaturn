@@ -24,7 +24,7 @@ class Administrar extends CI_Controller {
 				'ESTADO',
 				'HORA_INICIO_ATENCION',
 				'HORA_CIERRE','CODIGO',
-				'SECUENCIAL','PRIORIDAD',
+				'SECUENCIAL','PRIORIDAD','ICONO',
 				'USUARIO_REG','FECHA_REG',
 				'USUARIO_MOD','FECHA_MOD');
 			$crud->display_as('NOMBRE', 'Categoría')
@@ -33,6 +33,7 @@ class Administrar extends CI_Controller {
 				->display_as('HORA_INICIO_ATENCION', 'Hora Inicio Atención')
 				->display_as('HORA_CIERRE', 'Hora Cierre')
 				->display_as('CODIGO', 'Código')
+				->display_as('ICONO', 'Icono')
 				->display_as('SECUENCIAL', 'Secuencial')
 				->display_as('PRIORIDAD', 'Prioridad')
 				->display_as('USUARIO_REG', 'Usuario Registro')
@@ -45,14 +46,14 @@ class Administrar extends CI_Controller {
 				'ESTADO',
 				'HORA_INICIO_ATENCION',
 				'HORA_CIERRE','CODIGO',
-				'SECUENCIAL','PRIORIDAD', 'FECHA_REG', 'USUARIO_REG');
+				'SECUENCIAL','PRIORIDAD', 'ICONO','FECHA_REG', 'USUARIO_REG');
 			$crud->edit_fields(
 				'NOMBRE',
 				'DESCRIPCION',
 				'ESTADO',
 				'HORA_INICIO_ATENCION',
 				'HORA_CIERRE','CODIGO',
-				'SECUENCIAL','PRIORIDAD', 'FECHA_MOD', 'USUARIO_MOD');
+				'SECUENCIAL','PRIORIDAD', 'ICONO', 'FECHA_MOD', 'USUARIO_MOD');
 			$this->addFieldsHelper($crud, $this->session->userdata('username'));
 			$crud->required_fields(
 				'NOMBRE',
@@ -60,8 +61,9 @@ class Administrar extends CI_Controller {
 				'ESTADO',
 				'HORA_INICIO_ATENCION',
 				'HORA_CIERRE','CODIGO',
-				'SECUENCIAL','PRIORIDAD'
+				'SECUENCIAL','PRIORIDAD', 'ICONO'
 			);
+			$crud->set_field_upload('ICONO','public/tomaturn/iconos');
 
 			$output = $crud->render();
 
@@ -205,7 +207,7 @@ class Administrar extends CI_Controller {
 			$crud->set_table('tk_categoria_zona');
 			$crud->set_subject('Categoria - Zona');
 
-			$crud->columns('ID_CATEGORIA','ID_ZONA','ESTADO','USUARIO_REG','FECHA_REG','USUARIO_MOD','FECHA_MOD');
+			$crud->columns('ID_ZONA','ID_CATEGORIA','ESTADO','USUARIO_REG','FECHA_REG','USUARIO_MOD','FECHA_MOD');
 			$crud->display_as('ID_CATEGORIA', 'Categoria')
 				 ->display_as('ID_ZONA','Zona')
 				 ->display_as('ESTADO','Estado')
@@ -214,8 +216,8 @@ class Administrar extends CI_Controller {
 				 ->display_as('USUARIO_MOD','Usuario Modificación')
 				 ->display_as('FECHA_MOD','Fecha Modificación');
 
-			$crud->add_fields('ID_CATEGORIA','ID_ZONA','ESTADO', 'FECHA_REG', 'USUARIO_REG');
-			$crud->edit_fields('ID_CATEGORIA','ID_ZONA','ESTADO', 'USUARIO_MOD', 'FECHA_MOD');
+			$crud->add_fields('ID_ZONA','ID_CATEGORIA','ESTADO', 'FECHA_REG', 'USUARIO_REG');
+			$crud->edit_fields('ID_ZONA','ID_CATEGORIA', 'ESTADO', 'USUARIO_MOD', 'FECHA_MOD');
 
 			$this->addFieldsHelper($crud, $this->session->userdata('username'));
 
