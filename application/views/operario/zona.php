@@ -1,5 +1,13 @@
 <?php $this->load->view('commons/header');	?>
-<?php $this->load->view('operario/menu_operador');  ?>
+<?php $this->load->view('commons/menu');  ?>
+<?php if($this->session->userdata('estacion') == 0): ?>
+<div class="alert alert-danger">
+	<ul>
+		<li>Usted no tiene una estacion asignada, contactese con el administrador.</li>
+		<li>No podra realizar atenciones</li>
+	</ul>
+<?php endif; ?>
+</div>
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
 	<h1 class="display-4">Zonas</h1>
   	<p class="lead">

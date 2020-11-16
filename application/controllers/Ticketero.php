@@ -12,11 +12,11 @@ class Ticketero extends CI_Controller {
     public function index()
     {
         $data['zonas'] = $this->zona->getActivas();
-    	$this->load->view('usuario/zona', $data);
+    	$this->load->view('public/zona', $data);
     }
     public function categoriasZona($id)
     {
         $data['categorias'] = $this->categoria->getCategoriaByZona($id);
-        $this->load->view('usuario/ticketero', $data);
+        $this->load->view('public/ticketero', $data);
     }
 }

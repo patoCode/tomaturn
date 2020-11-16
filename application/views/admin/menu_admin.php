@@ -15,6 +15,14 @@
           <li class="nav-item">
             <a class="nav-link  btn btn-dark" href="<?php echo base_url();?>administrar/administrarUsuario">Usuario</a>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link btn btn-dark dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SEGURIDAD</a>
+            <div class="dropdown-menu bg-success" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="<?php echo base_url();?>administrar/administrarRol">Roles</a>
+              <a class="dropdown-item" href="<?php echo base_url();?>administrar/administrarPrivilegios">Privilegios</a>
+              <a class="dropdown-item" href="<?php echo base_url();?>administrar/administrarMenu">Menus</a>
+            </div>
+          </li>
           <li class="nav-item">
             <a class="nav-link btn btn-dark" href="<?php echo base_url();?>administrar/administrarEstacion">Estación</a>
           </li>

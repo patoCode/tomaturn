@@ -93,7 +93,7 @@ if($success_message !== null){?>
             <input type="button" value="<?php echo $this->l('list_search');?>" class="crud_search btn btn-primary" id='crud_search'>
             <input type="button" value="<?php echo $this->l('list_clear_filtering');?>" id='search_clear' class="search_clear btn btn-danger">
 		</div>
-		<div class="pDiv col-md-12 bg-white">
+		<div class="pDiv col-md-12 bg-white align-baseline">
 		<div class="pDiv2">
 			<div class="pGroup">
 				<span class="pcontrol">

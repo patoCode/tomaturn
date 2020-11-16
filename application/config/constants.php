@@ -93,6 +93,10 @@ define('ENCABEZADO_TK','BIENVENIDO A ');
 define('SUCURSAL_TK','SUCURSAL-01');
 /* MAXIMO DE LLAMADAS*/
 define('MAX_LLAMADAS', 3);
+/* FORMATO DE FECHA PARA SQL Y-M-D */
+define('FOMAT_DATE_SQL', 'Y-m-d');
+/* FORMATO DE FECHA PARA VISTA d/m/Y */
+define('FOMAT_DATE_VIEW', 'd/m/Y');
 /* TIEMPO DE ESPERA ENTRE LlAMADAS EXPRESADO EN MILISEGUNDOS */
 define('TIEMPO_ENTRE_LLAMADA', 3000);
 /* DISPLAY TEXT */
@@ -142,3 +146,4 @@ define('MSG_TK_FIN_ATENCION', 'Finalizado el ticket');
 /* PATH PARA ARCHIVOS */
 define('PATH_ICONO_CATEGORIA', 'public/imgs/categoria');
 define('PATH_MULTIMEDIA_DISPLAY', 'public/multimedia/');
+

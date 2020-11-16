@@ -1,6 +1,13 @@
 <?php $this->load->view('commons/header');	?>
-<?php $this->load->view('operario/menu_operador');  ?>
-
+<?php $this->load->view('commons/menu'); ?>
+<?php if($this->session->userdata('estacion') == 0): ?>
+<div class="alert alert-danger">
+  <ul>
+    <li>Usted no tiene una estacion asignada, contactese con el administrador.</li>
+    <li>No podra realizar atenciones</li>
+  </ul>
+</div>
+<?php endif; ?>
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
   <h3 class="display-4">
     <?php echo $zona->NOMBRE; ?>
@@ -10,10 +17,12 @@
   </p>
 
 </div>
+
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-        <button class="btn btn-dark btn-lg btn-block btn-huge llamar" data-id-zona="<?php echo $zona->ID_ZONA; ?>"> <i class="fa fa-bell"></i> Llamar </button>
+      <?php if($this->session->userdata('estacion') > 0): ?>
+          <button class="btn btn-dark btn-lg btn-block btn-huge llamar" data-id-zona="<?php echo $zona->ID_ZONA; ?>"> <i class="fa fa-bell"></i> Llamar </button>
 
       	<!-- <a href="#" class="btn btn-dark btn-lg btn-block btn-huge pausarAtencion" data-id="<?php echo $this->session->userdata('id_usuario'); ?>" data-id-zona="<?php echo $zona->ID_ZONA; ?>">
       		<span class="oi oi-icon-bell" title="icon bell" aria-hidden="true"></span> pausar
@@ -25,6 +34,7 @@
 
         <div id="empty" class="mt-3 alert alert-danger" style="display:none">
         </div>
+      <?php endif; ?>
     </div>
   </div>
   <!-- tabla de atendidos -->
@@ -65,7 +75,6 @@
     </div>
   </div>
 <?php endif; ?>
-
 <?php $this->load->view('commons/modal_llamar'); ?>
 <?php $this->load->view('commons/footer'); ?>
 <script>

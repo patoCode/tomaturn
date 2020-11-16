@@ -28,7 +28,6 @@ class Usuario extends CI_Controller {
         $respuesta = array('response' => 1, 'mensaje' => "PAUSA DE ATENCIÓN ".$fecha_de_hoy);
         echo json_encode($respuesta);
         $this->session->set_userdata( $array );
-
     }
     public function continuarAtencion($idUsuario, $idZona)
     {
@@ -66,6 +65,9 @@ class Usuario extends CI_Controller {
     {
         $this->load->view('admin/base');
     }
-
+    public function Home()
+    {
+        $this->load->view('commons/welcome');
+    }
 
 }

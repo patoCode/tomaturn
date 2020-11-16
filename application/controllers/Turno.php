@@ -240,11 +240,8 @@ class Turno extends CI_Controller {
             array_push($array_tickets_vista, $elemento);
         }
         $multimedia = $this->multimedia->getActivo();
-        //$data = array('reproducido'=>$multimedia->REPRODUCIDO + 1);
-        //$this->multimedia->updateReporudccion($data, $multimedia->ID_MULTIMEDIA);
-
         $data['multimedia'] = $multimedia;
         $data['tickets'] = $array_tickets_vista;
-        $this->load->view('usuario/display', $data);
+        $this->load->view('public/display', $data);
     }
 }

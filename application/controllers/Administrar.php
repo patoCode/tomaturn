@@ -11,6 +11,50 @@ class Administrar extends CI_Controller {
 	{
 		$this->load->view('admin/base',(array)$output);
 	}
+	public function administrarMenu()
+	{
+		try{
+			$crud = new grocery_CRUD();
+			$crud->set_table('tk_menu');
+			$crud->set_subject('Menu/Bloque');
+
+			$crud->columns(
+				'MENU',
+				'DESCRIPCION',
+				'ORDEN',
+				'ESTADO',
+				'USUARIO_REG','FECHA_REG',
+				'USUARIO_MOD','FECHA_MOD');
+			$crud->display_as('MENU', 'Menu')
+				->display_as('ESTADO', 'Estado')
+				->display_as('ORDEN', 'Orden')
+				->display_as('USUARIO_REG', 'Usuario Registro')
+				->display_as('FECHA_REG', 'Fecha Registro')
+				->display_as('USUARIO_MOD', 'Usuario Modificación')
+				->display_as('FECHA_MOD', 'Fecha Modificación');
+			$crud->add_fields(
+				'MENU','ORDEN',
+				'ESTADO',
+				'FECHA_REG', 'USUARIO_REG');
+			$crud->edit_fields(
+				'MENU','ORDEN',
+				'ESTADO',
+				'FECHA_MOD', 'USUARIO_MOD');
+			$this->addFieldsHelper($crud, $this->session->userdata('username'));
+			$crud->required_fields(
+				'MENU','ORDEN',
+				'ESTADO'
+			);
+			$crud->set_field_upload('ICONO','public/tomaturn/iconos');
+
+			$output = $crud->render();
+
+			$this->_visualizar_admin($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
     public function administrarCategoria()
     {
     	try{
@@ -111,10 +155,10 @@ class Administrar extends CI_Controller {
 			$crud->set_table('tk_usuario');
 			$crud->set_subject('Usuario');
 
-			$crud->columns('NOMBRE_USUARIO','PASSWORD','ESTADO', 'USUARIO_REG','FECHA_REG','USUARIO_MOD','FECHA_MOD');
+			$crud->columns('NOMBRE_USUARIO','ROL','ESTADO', 'USUARIO_REG','FECHA_REG','USUARIO_MOD','FECHA_MOD');
 
-			$crud->add_fields('ID_PERSONA','NOMBRE_USUARIO','PASSWORD','ESTADO', 'USUARIO_REG', 'FECHA_REG');
-			$crud->edit_fields('ID_PERSONA','NOMBRE_USUARIO','PASSWORD','ESTADO', 'USUARIO_MOD', 'FECHA_MOD');
+			$crud->add_fields('ID_PERSONA','NOMBRE_USUARIO','PASSWORD','ROL','ESTADO', 'USUARIO_REG', 'FECHA_REG');
+			$crud->edit_fields('ID_PERSONA','NOMBRE_USUARIO','PASSWORD','ROL','ESTADO', 'USUARIO_MOD', 'FECHA_MOD');
 
 			$crud->display_as('NOMBRE_USUARIO', 'Nombre Usuario')
 				 ->display_as('PASSWORD','Contraseña')
@@ -129,6 +173,7 @@ class Administrar extends CI_Controller {
 
 
 			$crud->set_relation('ID_PERSONA','tk_persona','{NOMBRE} {APELLIDOS}');
+			$crud->set_relation_n_n('ROL', 'tk_rol_usuario', 'tk_rol', 'ID_USUARIO', 'ID_ROL', 'ROL');
 			$crud->required_fields('ID_PERSONA','NOMBRE_USUARIO','PASSWORD','FECHA_EXPIRACION','ESTADO');
 			$output = $crud->render();
 
@@ -343,6 +388,119 @@ class Administrar extends CI_Controller {
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
     }
+	/*
+		SEGURIDAD
+	*/
+	public function administrarRol()
+	{
+		try{
+			$crud = new grocery_CRUD();
+			$crud->set_table('tk_rol');
+			$crud->set_subject('ROL(es)');
+
+			$crud->set_relation_n_n('ACCESOS', 'tk_privilegio_rol', 'tk_privilegio', 'ID_ROL', 'ID_PRIVILEGIO', 'PRIVILEGIO');
+
+
+			$crud->columns(
+				'ROL',
+				'DESCRIPCION',
+				'ACCESOS',
+				'ESTADO',
+				'USUARIO_REG','FECHA_REG',
+				'USUARIO_MOD','FECHA_MOD');
+
+			$crud->display_as('ROL', 'Rol')
+				->display_as('DESCRIPCION', 'Descripción')
+				->display_as('ESTADO', 'Estado')
+				->display_as('USUARIO_REG', 'Usuario Registro')
+				->display_as('FECHA_REG', 'Fecha Registro')
+				->display_as('USUARIO_MOD', 'Usuario Modificación')
+				->display_as('FECHA_MOD', 'Fecha Modificación');
+			$crud->add_fields(
+				'ROL',
+				'DESCRIPCION','ACCESOS',
+				'ESTADO','FECHA_REG', 'USUARIO_REG');
+
+			$crud->edit_fields(
+				'ROL',
+				'DESCRIPCION','ACCESOS',
+				'ESTADO','FECHA_MOD', 'USUARIO_MOD');
+
+			$this->addFieldsHelper($crud, $this->session->userdata('username'));
+
+			$crud->required_fields(
+				'ROL',
+				'DESCRIPCION',
+				'ESTADO'
+			);
+			$output = $crud->render();
+
+			$this->_visualizar_admin($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+
+	public function administrarPrivilegios()
+	{
+		try{
+			$crud = new grocery_CRUD();
+			$crud->set_table('tk_privilegio');
+			$crud->set_subject('Privilegio');
+
+			$crud->columns(
+				'PRIVILEGIO',
+				'DESCRIPCION',
+				'URI',
+				'ID_MENU',
+				'ORDEN',
+				'ESTADO',
+				'USUARIO_REG','FECHA_REG',
+				'USUARIO_MOD','FECHA_MOD');
+
+			$crud->display_as('PRIVILEGIO', 'Privilegio')
+				->display_as('DESCRIPCION', 'Descripción')
+				->display_as('URI', 'Direccion')
+				->display_as('ID_MENU', 'Bloque')
+				->display_as('ORDEN','Orden')
+				->display_as('ESTADO', 'Estado')
+				->display_as('USUARIO_REG', 'Usuario Registro')
+				->display_as('FECHA_REG', 'Fecha Registro')
+				->display_as('USUARIO_MOD', 'Usuario Modificación')
+				->display_as('FECHA_MOD', 'Fecha Modificación');
+			$crud->add_fields(
+				'PRIVILEGIO',
+				'URI',
+				'ORDEN',
+				'ID_MENU',
+				'DESCRIPCION',
+				'ESTADO','FECHA_REG', 'USUARIO_REG');
+
+			$crud->edit_fields(
+				'PRIVILEGIO','URI',
+				'ORDEN',
+				'ID_MENU',
+				'DESCRIPCION',
+				'ESTADO','FECHA_MOD', 'USUARIO_MOD');
+
+			$this->addFieldsHelper($crud, $this->session->userdata('username'));
+			$crud->set_relation('ID_MENU','tk_menu','{MENU}');
+			$crud->required_fields(
+				'PRIVILEGIO','URI',
+				'ORDEN',
+				'DESCRIPCION',
+				'ESTADO'
+			);
+			$output = $crud->render();
+
+			$this->_visualizar_admin($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+
     protected function addFieldsHelper($crud, $username){
     	add_fields_reg($crud, $username);
 		add_fields_edit($crud, $username);
